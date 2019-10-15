@@ -15,7 +15,6 @@ public class LoginClient extends WebViewClient {
     @Override
     public void onPageFinished (WebView view, String url){
         if(url.contains("epicture.com")){
-            //todo: parse url to get access codes
 
             HashMap<String, String> parameters = new HashMap<>();
             String pieces = url.split("#")[1];
@@ -31,6 +30,9 @@ public class LoginClient extends WebViewClient {
             String account_id = parameters.get("account_id");
 
             OAuth2Values values = new OAuth2Values(access_token, lifeTime, token_type, refresh_token, account_username, account_id);
+
+            LoginParameters.storeValues(values, activity.getApplicationContext());
+
             Intent intent = new Intent(activity, MainActivity.class);
             activity.startActivity(intent);
             activity.finish();

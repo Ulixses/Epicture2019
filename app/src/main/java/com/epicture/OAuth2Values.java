@@ -1,5 +1,4 @@
 package com.epicture;
-
 import java.util.Date;
 
 /* CALLBACK URL:
@@ -13,7 +12,7 @@ import java.util.Date;
 */
 public class OAuth2Values {
     private String access_token;
-    private Date expires_in;
+    private Long expires_in; //Milliseconds in EPOCH time
     private String token_type;
     private String refresh_token;
     private String account_username;
@@ -23,8 +22,12 @@ public class OAuth2Values {
         return access_token;
     }
 
-    public Date getExpires_in() {
+    public Long getExpires_in() {
         return expires_in;
+    }
+
+    public void setExpires_in(Long expires_in) {
+        this.expires_in = expires_in;
     }
 
     public String getToken_type() {
@@ -49,6 +52,6 @@ public class OAuth2Values {
         this.refresh_token = refresh_token;
         this.account_username = account_username;
         this. account_id = account_id;
-        this.expires_in = new Date(lifeTime * 1000 + System.currentTimeMillis());
+        this.expires_in = lifeTime * 1000 + System.currentTimeMillis();
     }
 }

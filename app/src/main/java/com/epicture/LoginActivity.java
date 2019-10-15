@@ -11,8 +11,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //todo: create class with client id
-        String oauthURL = "https://api.imgur.com/oauth2/authorize?client_id=baaabc6b57cadba&response_type=token";
+        String oauthURL = "https://api.imgur.com/oauth2/authorize?client_id=" + ImgurAPI.client_id + "&response_type=token";
 
         WebView web = findViewById(R.id.WebView);
 

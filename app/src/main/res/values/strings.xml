@@ -3,4 +3,7 @@
     <string name="buttonUser">USER</string>
     <string name="buttonHome">HOME</string>
     <string name="buttonUpload">UPLOAD</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>
