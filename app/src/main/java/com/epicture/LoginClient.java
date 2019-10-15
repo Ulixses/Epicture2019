@@ -1,4 +1,4 @@
-package com.example.logindummy;
+package com.epicture;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,7 +8,7 @@ import android.webkit.WebViewClient;
 import java.util.HashMap;
 
 public class LoginClient extends WebViewClient {
-    Activity activity;
+    private Activity activity;
     public LoginClient(Activity activity){
         this.activity = activity;
     }
@@ -17,7 +17,7 @@ public class LoginClient extends WebViewClient {
         if(url.contains("epicture.com")){
             //todo: parse url to get access codes
 
-            HashMap<String, String> parameters = new HashMap<String, String>();
+            HashMap<String, String> parameters = new HashMap<>();
             String pieces = url.split("#")[1];
             for(String a : pieces.split("&")){
                 String[] pair = a.split("=");

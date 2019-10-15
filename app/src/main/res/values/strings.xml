@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LoginDummy</string>
+    <string name="app_name">Epicture</string>
     <string name="buttonUser">USER</string>
     <string name="buttonHome">HOME</string>
     <string name="buttonUpload">UPLOAD</string>

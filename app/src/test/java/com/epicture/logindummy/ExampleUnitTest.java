@@ -1,4 +1,4 @@
-package com.example.logindummy;
+package com.epicture.logindummy;
 
 import org.junit.Test;
 

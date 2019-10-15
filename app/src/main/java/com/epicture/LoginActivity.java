@@ -1,4 +1,4 @@
-package com.example.logindummy;
+package com.epicture;
 
 import androidx.appcompat.app.AppCompatActivity;
 
