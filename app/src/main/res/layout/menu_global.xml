@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    tools:showIn="@layout/activity_main">
+
+    <Button
+        android:id="@+id/buttonUpload"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableBottom="@android:drawable/ic_menu_camera"
+        android:text="@string/buttonUpload" />
+
+    <Button
+        android:id="@+id/buttonSearch"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableBottom="@android:drawable/ic_menu_search"
+        android:text="@string/search" />
+
+    <Button
+        android:id="@+id/buttonHome"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableBottom="@drawable/ic_home"
+        android:text="@string/buttonHome" />
+
+    <Button
+        android:id="@+id/buttonUser"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableBottom="@drawable/ic_person"
+        android:text="@string/buttonUser" />
+
+</LinearLayout>

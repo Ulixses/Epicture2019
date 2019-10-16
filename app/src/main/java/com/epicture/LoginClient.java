@@ -33,7 +33,7 @@ public class LoginClient extends WebViewClient {
 
             LoginParameters.storeValues(values, activity.getApplicationContext());
 
-            Intent intent = new Intent(activity, MainActivity.class);
+            Intent intent = new Intent(activity, ProfileActivity.class);
             activity.startActivity(intent);
             activity.finish();
         }

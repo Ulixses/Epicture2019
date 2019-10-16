@@ -4,6 +4,7 @@
     <string name="buttonHome">HOME</string>
     <string name="buttonUpload">UPLOAD</string>
     <string name="title_activity_profile">ProfileActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="search">SEARCH</string>
+    <string name="select">SELECT</string>
+    <string name="send">SEND</string>
 </resources>

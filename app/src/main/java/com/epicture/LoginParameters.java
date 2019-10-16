@@ -32,4 +32,13 @@ public class LoginParameters {
         values.setExpires_in(expires_in);
         return values;
     }
+
+    static boolean isLogged(Context context){
+        SharedPreferences preferences = context.getSharedPreferences("OAuth", Context.MODE_PRIVATE);
+
+        String access_token = preferences.getString("access_token", "");
+        if (access_token.equals(""))
+            return false;
+        return true;
+    }
 }

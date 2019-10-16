@@ -1,7 +1,7 @@
 package com.epicture;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.epicture.request.ImgurAPI;
 import android.os.Bundle;
 import android.webkit.WebView;
 

@@ -7,43 +7,48 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity
+import com.epicture.request.ImgurAPI;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener
 {
-    Button bUser;
-    Button bHome;
-    Button bUpload;
+    ImgurAPI imgur;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        bUser = findViewById(R.id.buttonUser);
-        bUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        /*bUpload = findViewById(R.id.buttonUpload);
-        bUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        bHome = findViewById(R.id.buttonHome);
-        bHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });*/
-    }
+        imgur = new ImgurAPI(this);
 
+        //Generate all the buttons
+        Button bUser = findViewById(R.id.buttonUser);
+        Button bHome = findViewById(R.id.buttonHome);
+        Button bUpload = findViewById(R.id.buttonUpload);
+        Button bSearch = findViewById(R.id.buttonSearch);
+
+        bUser.setOnClickListener(this);
+        bHome.setEnabled(false);
+        bUpload.setOnClickListener(this);
+        bSearch.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View v) {
+        Intent intent;
+        switch (v.getId()) {
+            case R.id.buttonUpload:
+                intent = new Intent(this, UploadActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            /*case R.id.buttonSearch:
+                intent = new Intent(this, SearchActivity.class);
+                startActivity(intent);
+                finish();
+                break;*/
+            case R.id.buttonUser:
+                intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+        }
+    }
 }
 
