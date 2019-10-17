@@ -9,27 +9,28 @@ import android.widget.Button;
 
 import com.epicture.request.ImgurAPI;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener
-{
+public class FavoriteActivity extends AppCompatActivity implements View.OnClickListener {
+
     ImgurAPI imgur;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_favorite);
         imgur = new ImgurAPI(this);
+        imgur.generateFavorites();
 
-        //Generate all the buttons
         Button bUser = findViewById(R.id.buttonUser);
-        Button bFavorite = findViewById(R.id.buttonFav);
+        Button bHome = findViewById(R.id.buttonHome);
         Button bUpload = findViewById(R.id.buttonUpload);
         Button bSearch = findViewById(R.id.buttonSearch);
-        findViewById(R.id.buttonHome).setEnabled(false);
+        findViewById(R.id.buttonFav).setEnabled(false);
 
         bUser.setOnClickListener(this);
-        bFavorite.setOnClickListener(this);
+        bHome.setOnClickListener(this);
         bUpload.setOnClickListener(this);
         bSearch.setOnClickListener(this);
     }
+
     @Override
     public void onClick(View v) {
         Intent intent;
@@ -49,12 +50,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.buttonFav:
-                intent = new Intent(this, FavoriteActivity.class);
+            case R.id.buttonHome:
+                intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 finish();
                 break;
         }
     }
 }
-

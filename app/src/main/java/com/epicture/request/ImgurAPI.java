@@ -3,6 +3,8 @@ package com.epicture.request;
 import android.app.Activity;
 import android.util.Base64;
 import com.epicture.LoginParameters;
+import com.epicture.OAuth2Values;
+
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -12,12 +14,12 @@ import okhttp3.RequestBody;
 public class ImgurAPI {
     public static String client_id = "baaabc6b57cadba";
     private Activity currentContext;
-    String access_token;
     OkHttpClient client;
+    OAuth2Values values;
 
     public ImgurAPI(Activity currentcontext) {
         currentContext = currentcontext;
-        access_token = LoginParameters.retrieveValues(currentcontext).getAccess_token();
+        values = LoginParameters.retrieveValues(currentcontext);
         client = new OkHttpClient();
     }
 
@@ -32,10 +34,20 @@ public class ImgurAPI {
             Request request = new Request.Builder()
                     .url("https://api.imgur.com/3/upload")
                     .header("Authorization", "Client-ID " + client_id)
-                    .header("Authorization", "Bearer " + access_token)
+                    .header("Authorization", "Bearer " + values.getAccess_token())
                     .post(body)
                     .build();
 
             client.newCall(request).enqueue(new PostImageCallback());
+    }
+
+    public void generateFavorites(){
+        OAuth2Values values =  LoginParameters.retrieveValues(currentContext.getApplicationContext());
+        Request request = new Request.Builder()
+                .url("https://api.imgur.com/3/account/" + values.getAccount_username() + "/favorites")
+                .header("Authorization", "Bearer " + values.getAccess_token())
+                .build();
+
+        client.newCall(request).enqueue(new FavoritesCallback(currentContext));
     }
 }

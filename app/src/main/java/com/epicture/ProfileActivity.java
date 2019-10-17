@@ -25,13 +25,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_profile);
         imgur = new ImgurAPI(this);
 
-        Button bUser = findViewById(R.id.buttonUser);
+        findViewById(R.id.buttonUser).setEnabled(false);
         Button bHome = findViewById(R.id.buttonHome);
         Button bUpload = findViewById(R.id.buttonUpload);
         Button bSearch = findViewById(R.id.buttonSearch);
         Button bFavorites = findViewById(R.id.buttonFav);
 
-        bUser.setEnabled(false);
         bHome.setOnClickListener(this);
         bUpload.setOnClickListener(this);
         bSearch.setOnClickListener(this);
@@ -63,12 +62,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent);
                 finish();
                 break;
-            /*case R.id.buttonFav:
-                intent = new Intent(this, UploadActivity.class);
+            case R.id.buttonFav:
+                intent = new Intent(this, FavoriteActivity.class);
                 startActivity(intent);
                 finish();
                 break;
-            case R.id.buttonSearch:
+            /*case R.id.buttonSearch:
                 intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
                 finish();

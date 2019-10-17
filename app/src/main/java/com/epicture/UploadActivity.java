@@ -35,12 +35,13 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
 
         Button bUser = findViewById(R.id.buttonUser);
         Button bHome = findViewById(R.id.buttonHome);
-        Button bUpload = findViewById(R.id.buttonUpload);
+        Button bFavorite = findViewById(R.id.buttonFav);
         Button bSearch = findViewById(R.id.buttonSearch);
+        findViewById(R.id.buttonUpload).setEnabled(false);
 
         bUser.setOnClickListener(this);
         bHome.setOnClickListener(this);
-        bUpload.setEnabled(false);
+        bFavorite.setOnClickListener(this);
         bSearch.setOnClickListener(this);
 
         imageView = findViewById(R.id.imageView);
@@ -77,6 +78,11 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 break;*/
             case R.id.buttonUser:
                 intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.buttonFav:
+                intent = new Intent(this, FavoriteActivity.class);
                 startActivity(intent);
                 finish();
                 break;
