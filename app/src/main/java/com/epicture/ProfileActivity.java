@@ -10,12 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.epicture.request.ImgurAPI;
-import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.jetbrains.annotations.NotNull;
@@ -47,11 +45,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private void fetchData() {
         httpClient2 = new OkHttpClient.Builder().build();
-
+        OAuth2Values values = LoginParameters.retrieveValues(this.getApplicationContext());
         Request request = new Request.Builder()
-                .url("https://api.imgur.com/3/account/stam0325/submissions/{{page}}")
-                .header("Authorization", "Client-ID ad42168a6373bd7")
-                .header("User-Agent", "My Little App")
+                .url("https://api.imgur.com/3/account/me/images")
+                .header("Authorization", "Bearer " + values.getAccess_token())
                 .build();
 
         httpClient2.newCall(request).enqueue(new Callback() {
@@ -71,11 +68,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     for (int i = 0; i < items.length(); i++) {
                         JSONObject item = items.getJSONObject(i);
                         Photo photo = new Photo();
-                        if (item.getBoolean("is_album")) {
-                            photo.id = item.getString("cover");
-                        } else {
-                            photo.id = item.getString("id");
-                        }
+                        photo.id = item.getString("id");
                         photo.title = item.getString("title");
 
                         photos.add(photo); // Add photo to list
