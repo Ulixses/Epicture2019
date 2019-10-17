@@ -28,7 +28,7 @@ public class LoginParameters {
         String refresh_token = preferences.getString("refresh_token", "");
         String account_username = preferences.getString("account_username", "");
         String account_id = preferences.getString("account_id", "");
-        OAuth2Values values = new OAuth2Values(access_token, Long.valueOf(0), token_type, refresh_token, account_username, account_id);
+        OAuth2Values values = new OAuth2Values(access_token, 0L, token_type, refresh_token, account_username, account_id);
         values.setExpires_in(expires_in);
         return values;
     }
@@ -37,8 +37,6 @@ public class LoginParameters {
         SharedPreferences preferences = context.getSharedPreferences("OAuth", Context.MODE_PRIVATE);
 
         String access_token = preferences.getString("access_token", "");
-        if (access_token.equals(""))
-            return false;
-        return true;
+        return !access_token.equals("");
     }
 }
