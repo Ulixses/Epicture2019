@@ -98,7 +98,7 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
         }
         OAuth2Values values = LoginParameters.retrieveValues(this.getApplicationContext());
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_favorite);
         imgur = new ImgurAPI(this);
 
         Button bUser = findViewById(R.id.buttonUser);
@@ -119,8 +119,6 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
     private static class PhotoVH extends RecyclerView.ViewHolder {
         ImageView photo;
         TextView title;
-        TextView Add;
-        TextView Delete;
 
         public PhotoVH(View itemView) {
             super(itemView);

@@ -15,7 +15,6 @@ public class LoginClient extends WebViewClient {
     @Override
     public void onPageFinished (WebView view, String url){
         if(url.contains("epicture.com")){
-
             HashMap<String, String> parameters = new HashMap<>();
             String pieces = url.split("#")[1];
             for(String a : pieces.split("&")){
@@ -33,10 +32,9 @@ public class LoginClient extends WebViewClient {
 
             LoginParameters.storeValues(values, activity.getApplicationContext());
 
-            Intent intent = new Intent(activity, ProfileActivity.class);
+            Intent intent = new Intent(activity, MainActivity.class);
             activity.startActivity(intent);
             activity.finish();
         }
-
     }
 }

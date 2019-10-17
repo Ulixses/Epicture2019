@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -13,7 +14,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.epicture.request.FavoritesCallback;
 import com.epicture.request.ImgurAPI;
+import com.epicture.request.PostImageCallback;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -27,20 +30,25 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener
 {
     ImgurAPI imgur;
+    Activity context;
 
     private static class Photo {
-        String id;
+        String cover;
         String title;
+        String ID;
+        Boolean isAlbum;
     }
 
-    private OkHttpClient httpClient;
+    private OkHttpClient httpClient,httpClient2;
 
     private void fetchData() {
         httpClient = new OkHttpClient.Builder().build();
@@ -69,11 +77,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         JSONObject item = items.getJSONObject(i);
                         MainActivity.Photo photo = new MainActivity.Photo();
                         if (item.getBoolean("is_album")) {
-                            photo.id = item.getString("cover");
+                            photo.isAlbum = true;
+                            photo.cover = item.getString("cover");
                         } else {
-                            photo.id = item.getString("id");
+                            photo.isAlbum = false;
+                            photo.cover = item.getString("id");
                         }
                         photo.title = item.getString("title");
+                        photo.ID= item.getString("id");
 
                         photos.add(photo); // Add photo to list
                     }
@@ -92,6 +103,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(!LoginParameters.isLogged(this.getApplicationContext())){
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            this.finish();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         imgur = new ImgurAPI(this);
@@ -114,8 +130,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static class PhotoVH extends RecyclerView.ViewHolder {
         ImageView photo;
         TextView title;
-        //TextView Add;
-        //TextView Delete;
+        Button fav;
+        TextView ID;
 
         public PhotoVH(View itemView) {
             super(itemView);
@@ -132,22 +148,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 MainActivity.PhotoVH vh = new MainActivity.PhotoVH(getLayoutInflater().inflate(R.layout.item, null));
                 vh.photo = (ImageView) vh.itemView.findViewById(R.id.photo);
                 vh.title = (TextView) vh.itemView.findViewById(R.id.title);
+                vh.fav = (Button) vh.itemView.findViewById(R.id.buttonFavorite);
+                vh.ID = (TextView) vh.itemView.findViewById(R.id.imageid);
 
-                //vh.Add=(TextView)vh.itemView.findViewById(R.id.Add);
-                //vh.Delete=(TextView)vh.itemView.findViewById(R.id.Delete);
                 return vh;
             }
 
             @Override
-            public void onBindViewHolder(MainActivity.PhotoVH holder, int position) {
+            public void onBindViewHolder(MainActivity.PhotoVH holder, final int position) {
                 Picasso.get().load("https://i.imgur.com/" +
-                        photos.get(position).id + ".jpg").into(holder.photo);
+                        photos.get(position).cover + ".jpg").into(holder.photo);
                 holder.title.setText(photos.get(position).title);
+
+                holder.fav.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        httpClient2= new OkHttpClient.Builder().build();
+                        RequestBody body = new MultipartBody.Builder()
+                                .setType(MultipartBody.FORM)
+                                .addFormDataPart("image", "title")
+                                .build();
+                        String type = photos.get(position).isAlbum ? "album" : "image";
+                        Request request2 = new Request.Builder()
+                                .url("https://api.imgur.com/3/" + type + "/" + photos.get(position).ID + "/favorite")
+                                .header("Authorization", "Bearer " + LoginParameters.retrieveValues(getApplicationContext()).getAccess_token())
+                                .post(body)
+                                .build();
+
+                        httpClient2.newCall(request2).enqueue(new FavoritesCallback(MainActivity.this));
+                    }
+                });
+                holder.ID.setText(photos.get(position).ID);
             }
-
-            // Managing_Favorite system
-
-
             @Override
             public int getItemCount() {
                 return photos.size();
