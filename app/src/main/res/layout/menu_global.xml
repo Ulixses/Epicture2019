@@ -34,6 +34,15 @@
         android:text="@string/buttonHome" />
 
     <Button
+        android:id="@+id/buttonFav"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableBottom="@drawable/ic_star"
+        android:text="@string/favorites" />
+
+    <Button
         android:id="@+id/buttonUser"
         style="@style/ButtonStyle"
         android:layout_width="match_parent"

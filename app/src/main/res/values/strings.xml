@@ -7,4 +7,5 @@
     <string name="search">SEARCH</string>
     <string name="select">SELECT</string>
     <string name="send">SEND</string>
+    <string name="favorites">FAVORITES</string>
 </resources>

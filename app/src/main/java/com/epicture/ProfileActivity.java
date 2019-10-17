@@ -7,8 +7,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.epicture.request.ImgurAPI;
-import com.google.android.material.tabs.TabLayout;
-import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -31,18 +29,16 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         Button bHome = findViewById(R.id.buttonHome);
         Button bUpload = findViewById(R.id.buttonUpload);
         Button bSearch = findViewById(R.id.buttonSearch);
+        Button bFavorites = findViewById(R.id.buttonFav);
 
         bUser.setEnabled(false);
         bHome.setOnClickListener(this);
         bUpload.setOnClickListener(this);
         bSearch.setOnClickListener(this);
+        bFavorites.setOnClickListener(this);
 
-
-        TextView header = findViewById(R.id.title);
-        header.append(values.getAccount_username());
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        TabLayout tabs = findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
+        TextView textView = findViewById(R.id.title);
+        textView.append(values.getAccount_username());
     }
 
     @Override
@@ -67,7 +63,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent);
                 finish();
                 break;
-            /*case R.id.buttonSearch:
+            /*case R.id.buttonFav:
+                intent = new Intent(this, UploadActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.buttonSearch:
                 intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
                 finish();
