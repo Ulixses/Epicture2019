@@ -29,6 +29,12 @@
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="180dp" />
 
+        <TextView
+            android:id="@+id/imageid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
         <Button
             android:id="@+id/buttonFavorite"
             android:layout_width="wrap_content"
@@ -39,6 +45,7 @@
             android:text="Favorite"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="191dp" />
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

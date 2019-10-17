@@ -87,11 +87,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(!LoginParameters.isLogged(this.getApplicationContext())){
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }
+
         OAuth2Values values = LoginParameters.retrieveValues(this.getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);

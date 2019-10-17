@@ -14,9 +14,12 @@ public class FavoritesCallback implements okhttp3.Callback{
         this.context = context;
     }
 
+    public FavoritesCallback() { }
+
     @Override
     public void onFailure(Call call, IOException e) {
-        Log.e("PostImageCallback", "onFailure");
+        e.printStackTrace();
+        //Log.e("PostImageCallback", "onFailure");
     }
 
     @Override

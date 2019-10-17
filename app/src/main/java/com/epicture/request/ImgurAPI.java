@@ -12,7 +12,7 @@ import okhttp3.RequestBody;
 
 
 public class ImgurAPI {
-    public static String client_id = "baaabc6b57cadba";
+    public static String client_id = "ad42168a6373bd7";
     private Activity currentContext;
     OkHttpClient client;
     OAuth2Values values;
