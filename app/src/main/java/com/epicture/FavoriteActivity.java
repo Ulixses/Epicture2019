@@ -45,9 +45,8 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
         httpClient2 = new OkHttpClient.Builder().build();
 
         Request request = new Request.Builder()
-                .url("https://api.imgur.com/3/account/stam0325/favorites/{{1}}/{{favoritesSort}}")
-                .header("Authorization", "Bearer 8b1d275ec9a84c1c3cfb79d5326fe14bed1ab846")
-                .header("User-Agent", "My Little App")
+                .url("https://api.imgur.com/3/account/me/favorites")
+                .header("Authorization", "Bearer " + LoginParameters.retrieveValues(this.getApplicationContext()).getAccess_token())
                 .build();
 
         httpClient2.newCall(request).enqueue(new Callback() {
@@ -190,11 +189,11 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(intent);
                 finish();
                 break;
-            /*case R.id.buttonSearch:
+            case R.id.buttonSearch:
                 intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
                 finish();
-                break;*/
+                break;
         }
     }
 }

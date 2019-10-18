@@ -8,4 +8,6 @@
     <string name="select">SELECT</string>
     <string name="send">SEND</string>
     <string name="favorites">FAVORITES</string>
+    <string name="ex_dogs">ex. dogs</string>
+    <string name="action_search">action_search</string>
 </resources>

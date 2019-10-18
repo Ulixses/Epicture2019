@@ -35,7 +35,6 @@ public class ImgurAPI {
                     .url("https://api.imgur.com/3/upload")
                     .header("Authorization", "Client-ID " + client_id)
                     .header("Authorization", "Bearer " + values.getAccess_token())
-                    .post(body)
                     .build();
 
             client.newCall(request).enqueue(new PostImageCallback());
@@ -49,5 +48,14 @@ public class ImgurAPI {
                 .build();
 
         client.newCall(request).enqueue(new FavoritesCallback(currentContext));
+    }
+
+    public void generateSearch(String query){
+        Request request = new Request.Builder()
+                .url("https://api.imgur.com/3/gallery/search?q=" + query)
+                .header("Authorization", "Client-ID " + client_id)
+                .build();
+
+        client.newCall(request).enqueue(new SearchCallback(currentContext));
     }
 }

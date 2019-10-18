@@ -132,11 +132,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent);
                 finish();
                 break;
-            /*case R.id.buttonSearch:
+            case R.id.buttonSearch:
                 intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
                 finish();
-                break;*/
+                break;
             case R.id.buttonFav:
                 intent = new Intent(this, FavoriteActivity.class);
                 startActivity(intent);

@@ -71,11 +71,11 @@ public class UploadActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent);
                 finish();
                 break;
-            /*case R.id.buttonSearch:
+            case R.id.buttonSearch:
                 intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
                 finish();
-                break;*/
+                break;
             case R.id.buttonUser:
                 intent = new Intent(this, ProfileActivity.class);
                 startActivity(intent);

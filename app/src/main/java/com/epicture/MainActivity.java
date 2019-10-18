@@ -39,7 +39,6 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener
 {
     ImgurAPI imgur;
-    Activity context;
 
     private static class Photo {
         String cover;
@@ -203,11 +202,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 finish();
                 break;
-            /*case R.id.buttonSearch:
+            case R.id.buttonSearch:
                 intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
                 finish();
-                break;*/
+                break;
             case R.id.buttonUser:
                 intent = new Intent(this, ProfileActivity.class);
                 startActivity(intent);
