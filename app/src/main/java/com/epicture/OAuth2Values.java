@@ -50,7 +50,7 @@ public class OAuth2Values {
         this.access_token = access_token;
         this.token_type = token_type;
         this.refresh_token = refresh_token;
-        this.account_username = account_username;
+        this.account_username = account_username; //stam0325
         this. account_id = account_id;
         this.expires_in = lifeTime * 1000 + System.currentTimeMillis();
     }

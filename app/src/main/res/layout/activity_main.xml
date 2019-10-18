@@ -1,16 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    tools:context=".ProfileActivity">
+
+    <Button
+        android:id="@+id/mostViral"
+        android:layout_width="169dp"
+        android:layout_height="60dp"
+        android:text="MostViral"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="7dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/feed"
+        android:layout_width="171dp"
+        android:layout_height="50dp"
+        android:text="Feed"
+        tools:layout_editor_absoluteX="205dp"
+        tools:layout_editor_absoluteY="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_of_photos"
         android:layout_width="match_parent"
-        android:layout_height="670dp"
+        android:layout_height="589dp"
         app:layout_constraintBottom_toTopOf="@+id/menu_global"
         app:layout_constraintEnd_toEndOf="parent">
+
     </androidx.recyclerview.widget.RecyclerView>
 
     <include
@@ -22,5 +50,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
