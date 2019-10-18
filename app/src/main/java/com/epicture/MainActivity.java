@@ -49,11 +49,67 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private OkHttpClient httpClient,httpClient2;
 
-    private void fetchData() {
+    private void fetchData_feed() {
         httpClient = new OkHttpClient.Builder().build();
 
+        //.url("https://api.imgur.com/3/gallery/hot/viral/day/0?showViral={{showViral}}&mature={{showMature}}&album_previews={{albumPreviews}}.")
+        // most viral
         Request request = new Request.Builder()
-                .url("https://api.imgur.com/3/gallery/user/rising/0.json")
+                .url("https://api.imgur.com/3/gallery/user/rising/0.json") // feed
+                .header("Authorization", "Client-ID ad42168a6373bd7")
+                .header("User-Agent", "My Little App")
+                .build();
+
+        httpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response)
+                    throws IOException {
+                final List<MainActivity.Photo> photos = new ArrayList<>();
+                try {
+                    JSONObject data = new JSONObject(response.body().string());
+                    JSONArray items = data.getJSONArray("data");
+
+                    for (int i = 0; i < items.length(); i++) {
+                        JSONObject item = items.getJSONObject(i);
+                        MainActivity.Photo photo = new MainActivity.Photo();
+                        if (item.getBoolean("is_album")) {
+                            photo.isAlbum = true;
+                            photo.cover = item.getString("cover");
+                        } else {
+                            photo.isAlbum = false;
+                            photo.cover = item.getString("id");
+                        }
+                        photo.title = item.getString("title");
+                        photo.ID= item.getString("id");
+
+                        photos.add(photo); // Add photo to list
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        render(photos);
+                    }
+                });
+            }
+        });
+    }
+
+    private void fetchData_MostViral() {
+        httpClient = new OkHttpClient.Builder().build();
+
+        //.url("https://api.imgur.com/3/gallery/hot/viral/day/0?showViral={{showViral}}&mature={{showMature}}&album_previews={{albumPreviews}}.")
+        // most viral
+        Request request = new Request.Builder()
+                .url("https://api.imgur.com/3/gallery/hot/viral/day/0?showViral=" +
+                        "{{showViral}}&mature={{showMature}}&album_previews={{albumPreviews}}.")
                 .header("Authorization", "Client-ID ad42168a6373bd7")
                 .header("User-Agent", "My Little App")
                 .build();
@@ -118,19 +174,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button bSearch = findViewById(R.id.buttonSearch);
         Button bFavorite = findViewById(R.id.buttonFav);
 
+        Button bFeed = findViewById(R.id.feed);
+        Button bMostViral = findViewById(R.id.mostViral);
+
         bUser.setOnClickListener(this);
         bHome.setEnabled(false);
         bUpload.setOnClickListener(this);
         bSearch.setOnClickListener(this);
         bFavorite.setOnClickListener(this);
-        fetchData();
+
+        fetchData_feed(); // default view = feed
+
+        bFeed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fetchData_feed();
+            }
+        });
+
+        bMostViral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fetchData_MostViral();
+            }
+        });
     }
 
     private static class PhotoVH extends RecyclerView.ViewHolder {
         ImageView photo;
         TextView title;
         Button fav;
-        TextView ID;
+        //TextView ID;
 
         public PhotoVH(View itemView) {
             super(itemView);
@@ -148,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 vh.photo = (ImageView) vh.itemView.findViewById(R.id.photo);
                 vh.title = (TextView) vh.itemView.findViewById(R.id.title);
                 vh.fav = (Button) vh.itemView.findViewById(R.id.buttonFavorite);
-                vh.ID = (TextView) vh.itemView.findViewById(R.id.imageid);
+                //vh.ID = (TextView) vh.itemView.findViewById(R.id.imageid);
 
                 return vh;
             }
@@ -177,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         httpClient2.newCall(request2).enqueue(new FavoritesCallback(MainActivity.this));
                     }
                 });
-                holder.ID.setText(photos.get(position).ID);
+                //holder.ID.setText(photos.get(position).ID);
             }
             @Override
             public int getItemCount() {
@@ -217,6 +291,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 finish();
                 break;
+            /*case R.id.feed:
+                intent = new Intent(this, FavoriteActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.mostViral:
+                intent = new Intent(this, FavoriteActivity.class);
+                startActivity(intent);
+                finish();
+                break;*/
         }
     }
 }

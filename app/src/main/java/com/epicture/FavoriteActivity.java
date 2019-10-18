@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.epicture.request.FavoritesCallback;
 import com.epicture.request.ImgurAPI;
 import com.squareup.picasso.Picasso;
 
@@ -27,29 +28,33 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class FavoriteActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ImgurAPI imgur;
     private static class Photo {
-        String id;
+        String cover;
         String title;
+        String ID;
+        Boolean isAlbum;
     }
 
-    private OkHttpClient httpClient2;
+    private OkHttpClient httpClient,httpClient2;
 
     private void fetchData() {
-        httpClient2 = new OkHttpClient.Builder().build();
+        httpClient = new OkHttpClient.Builder().build();
 
         Request request = new Request.Builder()
                 .url("https://api.imgur.com/3/account/me/favorites")
                 .header("Authorization", "Bearer " + LoginParameters.retrieveValues(this.getApplicationContext()).getAccess_token())
                 .build();
 
-        httpClient2.newCall(request).enqueue(new Callback() {
+        httpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 e.printStackTrace();
@@ -65,13 +70,16 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
 
                     for (int i = 0; i < items.length(); i++) {
                         JSONObject item = items.getJSONObject(i);
-                        Photo photo = new Photo();
+                        FavoriteActivity.Photo photo = new FavoriteActivity.Photo();
                         if (item.getBoolean("is_album")) {
-                            photo.id = item.getString("cover");
+                            photo.isAlbum = true;
+                            photo.cover = item.getString("cover");
                         } else {
-                            photo.id = item.getString("id");
+                            photo.isAlbum = false;
+                            photo.cover = item.getString("id");
                         }
                         photo.title = item.getString("title");
+                        photo.ID= item.getString("id");
 
                         photos.add(photo); // Add photo to list
                     }
@@ -118,6 +126,7 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
     private static class PhotoVH extends RecyclerView.ViewHolder {
         ImageView photo;
         TextView title;
+        Button Del;
 
         public PhotoVH(View itemView) {
             super(itemView);
@@ -134,18 +143,36 @@ public class FavoriteActivity extends AppCompatActivity implements View.OnClickL
                 PhotoVH vh = new PhotoVH(getLayoutInflater().inflate(R.layout.item_fav, null));
                 vh.photo = (ImageView) vh.itemView.findViewById(R.id.photo);
                 vh.title = (TextView) vh.itemView.findViewById(R.id.title);
+                vh.Del = (Button) vh.itemView.findViewById(R.id.Delete);
                 return vh;
             }
 
             @Override
-            public void onBindViewHolder(PhotoVH holder, int position) {
+            public void onBindViewHolder(PhotoVH holder, final int position) {
                 Picasso.get().load("https://i.imgur.com/" +
-                        photos.get(position).id + ".jpg").into(holder.photo);
+                        photos.get(position).cover + ".jpg").into(holder.photo);
                 holder.title.setText(photos.get(position).title);
+
+                holder.Del.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        httpClient2= new OkHttpClient.Builder().build();
+                        RequestBody body = new MultipartBody.Builder()
+                                .setType(MultipartBody.FORM)
+                                .addFormDataPart("image", "title")
+                                .build();
+                        String type = photos.get(position).isAlbum ? "album" : "image";
+                        Request request2 = new Request.Builder()
+                                .url("https://api.imgur.com/3/" + type + "/" + photos.get(position).ID + "/favorite")
+                                .header("Authorization", "Bearer " + LoginParameters.retrieveValues(getApplicationContext()).getAccess_token())
+                                .post(body)
+                                .build();
+
+                        httpClient2.newCall(request2).enqueue(new FavoritesCallback(FavoriteActivity.this));
+                        fetchData();
+                    }
+                });
             }
-
-            // Managing_Favorite system
-
 
             @Override
             public int getItemCount() {
