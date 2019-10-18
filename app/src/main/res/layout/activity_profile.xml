@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/settings"
+            android:id="@+id/bSettings"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:background="@drawable/ic_settings"
@@ -32,9 +32,10 @@
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/settings"
+            app:layout_constraintEnd_toStartOf="@id/bSettings"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

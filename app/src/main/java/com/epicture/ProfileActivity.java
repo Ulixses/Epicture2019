@@ -111,6 +111,17 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         TextView header = findViewById(R.id.title);
         header.append(values.getAccount_username());
         fetchData();
+
+        Button settings = findViewById(R.id.bSettings);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this , SettingActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     @Override
