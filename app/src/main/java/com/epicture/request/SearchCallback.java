@@ -107,7 +107,6 @@ public class SearchCallback implements okhttp3.Callback{
                 vh.photo = (ImageView) vh.itemView.findViewById(R.id.photo);
                 vh.title = (TextView) vh.itemView.findViewById(R.id.title);
                 vh.fav = (Button) vh.itemView.findViewById(R.id.buttonFavorite);
-                vh.ID = (TextView) vh.itemView.findViewById(R.id.imageid);
 
                 return vh;
             }

@@ -40,7 +40,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private ImgurAPI imgur;
 
     private static class Photo {
-        String cover;
         String title;
         String ID;
         Boolean isAlbum;
@@ -52,7 +51,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         httpClient = new OkHttpClient.Builder().build();
         OAuth2Values values = LoginParameters.retrieveValues(this.getApplicationContext());
         Request request = new Request.Builder()
-                .url("https://api.imgur.com/3/account/me/submissions/")
+                .url("https://api.imgur.com/3/account/me/images")
                 .header("Authorization", "Bearer " + values.getAccess_token())
                 .build();
 
@@ -73,13 +72,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     for (int i = 0; i < items.length(); i++) {
                         JSONObject item = items.getJSONObject(i);
                         ProfileActivity.Photo photo = new ProfileActivity.Photo();
-                        if (item.getBoolean("is_album")) {
-                            photo.isAlbum = true;
-                            photo.cover = item.getString("cover");
-                        } else {
-                            photo.isAlbum = false;
-                            photo.cover = item.getString("id");
-                        }
                         photo.title = item.getString("title");
                         photo.ID= item.getString("id");
                         photos.add(photo); // Add photo to list
@@ -186,7 +178,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onBindViewHolder(ProfileActivity.PhotoVH holder, final int position) {
                 Picasso.get().load("https://i.imgur.com/" +
-                        photos.get(position).cover + ".jpg").into(holder.photo);
+                        photos.get(position).ID + ".jpg").into(holder.photo);
                 holder.title.setText(photos.get(position).title);
 
                 holder.fav.setOnClickListener(new View.OnClickListener(){

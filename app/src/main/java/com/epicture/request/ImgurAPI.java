@@ -35,6 +35,7 @@ public class ImgurAPI {
                     .url("https://api.imgur.com/3/upload")
                     .header("Authorization", "Client-ID " + client_id)
                     .header("Authorization", "Bearer " + values.getAccess_token())
+                    .post(body)
                     .build();
 
             client.newCall(request).enqueue(new PostImageCallback());
