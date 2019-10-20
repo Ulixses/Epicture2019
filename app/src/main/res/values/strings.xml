@@ -7,9 +7,14 @@
     <string name="search">SEARCH</string>
     <string name="select">SELECT</string>
     <string name="send">SEND</string>
-    <string name="favorites">FAVORITES</string>
+    <string name="favorites">FAV</string>
     <string name="ex_dogs">ex. dogs</string>
     <string name="action_search">action_search</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->
@@ -27,4 +32,5 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="sign_out">Sign Out</string>
+
 </resources>

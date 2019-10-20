@@ -45,7 +45,6 @@ public class SearchCallback implements okhttp3.Callback{
         ImageView photo;
         TextView title;
         Button fav;
-        TextView ID;
 
         public PhotoVH(View itemView) {
             super(itemView);
@@ -135,7 +134,6 @@ public class SearchCallback implements okhttp3.Callback{
                         client.newCall(request).enqueue(new FavoritesCallback(context));
                     }
                 });
-                holder.ID.setText(photos.get(position).ID);
             }
             @Override
             public int getItemCount() {
