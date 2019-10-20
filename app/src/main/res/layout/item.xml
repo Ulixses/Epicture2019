@@ -19,27 +19,34 @@
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp" />
 
-        <TextView
-            android:id="@+id/title"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:textAlignment="center"
-            android:textAppearance="@android:style/TextAppearance.Large"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="180dp" />
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/buttonFavorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="320dp"
-            android:layout_weight="1"
-            android:background="@drawable/ic_star"
-            android:text="Favorite"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="191dp" />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="298dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textAlignment="center"
+                android:textAppearance="@android:style/TextAppearance.Large"
+                android:layout_alignParentLeft="true"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="180dp" />
 
+            <Button
+                android:id="@+id/buttonFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="320dp"
+                android:layout_weight="1"
+                android:background="@drawable/ic_favorite"
+                tools:layout_editor_absoluteY="191dp" />
+        </RelativeLayout>
     </LinearLayout>
+
 
 </androidx.cardview.widget.CardView>
