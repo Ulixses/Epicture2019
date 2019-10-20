@@ -172,6 +172,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         TextView header = findViewById(R.id.title);
         header.append(values.getAccount_username());
 
+
         fetchData_all();
 
         ball.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +191,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
 
         /*Button settings = findViewById(R.id.bSettings);
+
+        fetchData();
+
+        Button settings = findViewById(R.id.bSettings);
+
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,7 +203,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(intent);
                 finish();
             }
+
         });*/
+
+        });
+
 
     }
 

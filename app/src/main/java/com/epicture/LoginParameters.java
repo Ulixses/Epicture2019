@@ -39,4 +39,11 @@ public class LoginParameters {
         String access_token = preferences.getString("access_token", "");
         return !access_token.equals("");
     }
+
+    static void clear(Context context){
+        SharedPreferences preferences = context.getSharedPreferences("OAuth", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
+    }
 }
